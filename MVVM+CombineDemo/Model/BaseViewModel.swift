@@ -28,14 +28,13 @@ class BaseViewModel: NSObject {
     }
     
     private func getData() {
-        let apiService = APIService()
         //We are using this timer to mimic this as a real API call.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.nameText = apiService.getUserName()
-            self.followersCountText = "\(apiService.getFollowers().count) Followers"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.nameText = APIService.getUserName()
+            self.followersCountText = "\(APIService.getFollowers().count) Followers"
+            self.followers = APIService.getFollowers()
+            self.tableView?.reloadData()
         }
-        self.followers = apiService.getFollowers()
-        self.tableView?.reloadData()
     }
 }
 
